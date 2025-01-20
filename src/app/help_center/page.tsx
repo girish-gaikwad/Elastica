@@ -14,6 +14,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import Link from 'next/link';
+import Image from 'next/image';
 
 const SupportPage = () => {
   const [activeChat, setActiveChat] = useState(false);
@@ -22,9 +23,11 @@ const SupportPage = () => {
     <div className="min-h-screen mt-16 bg-white">
       {/* Hero Section */}
       <div className="relative h-[500px] overflow-hidden">
-        <img
+        <Image
           src="/api/placeholder/1920/500"
           alt="Help Center"
+          width={1920}
+          height={500}
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-black/40" />
@@ -225,9 +228,11 @@ const SupportPage = () => {
                 transition={{ delay: index * 0.2 }}
               >
                 <div className="relative overflow-hidden rounded-2xl mb-6">
-                  <img
+                  <Image
                     src={category.image}
                     alt={category.title}
+                    width={600}
+                    height={400}
                     className="w-full aspect-[3/2] object-cover transition-transform duration-700 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />

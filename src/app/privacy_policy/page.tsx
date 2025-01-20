@@ -1,14 +1,14 @@
 "use client";
-import React, { useState } from 'react';
-import { ShoppingCart, CreditCard, Globe, Bell, Mail, Shield, Users, Lock, Search, ChevronDown, ExternalLink, X, Scale, FileText, Clock, Ban } from 'lucide-react';
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Ban, ChevronDown, Clock, ExternalLink, FileText, Lock, Mail, Scale, Search, Shield, X } from 'lucide-react';
+import { useState } from 'react';
 
 const EcommercePrivacyPolicy = () => {
-  const [expandedSection, setExpandedSection] = useState(null);
+  const [expandedSection, setExpandedSection] = useState<number | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
 
-  const toggleSection = (index) => {
+  const toggleSection = (index: number) => {
     setExpandedSection(expandedSection === index ? null : index);
   };
 
@@ -75,12 +75,18 @@ const EcommercePrivacyPolicy = () => {
     }
   ];
 
+  interface Section {
+    icon: React.ReactElement;
+    title: string;
+    content: string[];
+    highlight?: boolean;
+  }
   // Filter sections based on search query and active tab
-  const filterSections = (sections) => {
+  const filterSections = (sections: Section[]) => {
     return sections.filter(section => {
       const searchTerm = searchQuery.toLowerCase();
       const titleMatch = section.title.toLowerCase().includes(searchTerm);
-      const contentMatch = section.content.some(item => 
+      const contentMatch = section.content.some(item =>
         item.toLowerCase().includes(searchTerm)
       );
       return titleMatch || contentMatch;
@@ -88,28 +94,33 @@ const EcommercePrivacyPolicy = () => {
   };
 
   // Highlight matching text
-  const highlightText = (text, query) => {
+  const highlightText = (text: string, query: string) => {
     if (!query) return text;
-    
+
     const parts = text.split(new RegExp(`(${query})`, 'gi'));
-    return parts.map((part, index) => 
-      part.toLowerCase() === query.toLowerCase() ? 
-        <span key={index} className="bg-yellow-200">{part}</span> : 
+    return parts.map((part, index) =>
+      part.toLowerCase() === query.toLowerCase() ?
+        <span key={index} className="bg-yellow-200">{part}</span> :
         part
     );
   };
 
-  const SectionsList = ({ sections }) => {
+  interface Section {
+    icon: React.ReactElement;
+    title: string;
+    content: string[];
+    highlight?: boolean;
+  }
+  const SectionsList = ({ sections }: { sections: Section[] }) => {
     const filteredSections = filterSections(sections);
-    
+
     return (
       <div className="space-y-6">
         {filteredSections.map((section, index) => (
           <div
             key={index}
-            className={`bg-white rounded-xl shadow-sm transition-all duration-200 ${
-              section.highlight ? 'border-2 border-blue-200' : ''
-            }`}
+            className={`bg-white rounded-xl shadow-sm transition-all duration-200 ${section.highlight ? 'border-2 border-blue-200' : ''
+              }`}
           >
             <button
               onClick={() => toggleSection(index)}
@@ -125,17 +136,15 @@ const EcommercePrivacyPolicy = () => {
                   </h2>
                 </div>
                 <ChevronDown
-                  className={`w-5 h-5 text-gray-400 transition-transform duration-200 ${
-                    expandedSection === index ? 'transform rotate-180' : ''
-                  }`}
+                  className={`w-5 h-5 text-gray-400 transition-transform duration-200 ${expandedSection === index ? 'transform rotate-180' : ''
+                    }`}
                 />
               </div>
             </button>
-            
+
             <div
-              className={`overflow-hidden transition-all duration-200 ${
-                expandedSection === index ? 'max-h-96' : 'max-h-0'
-              }`}
+              className={`overflow-hidden transition-all duration-200 ${expandedSection === index ? 'max-h-96' : 'max-h-0'
+                }`}
             >
               <div className="p-6 pt-0 border-t border-gray-100">
                 <ul className="space-y-3">
@@ -150,11 +159,11 @@ const EcommercePrivacyPolicy = () => {
             </div>
           </div>
         ))}
-        
+
         {filteredSections.length === 0 && searchQuery && (
           <div className="text-center py-12">
-            <p className="text-gray-600">No matching sections found for "{searchQuery}"</p>
-            <button 
+            <p className="text-gray-600">No matching sections found for &quot;{searchQuery}&quot;</p>
+            <button
               onClick={clearSearch}
               className="mt-4 text-blue-600 hover:text-blue-800"
             >
@@ -211,7 +220,7 @@ const EcommercePrivacyPolicy = () => {
         {/* Alert Banner */}
         <Alert className="mb-8 bg-blue-50 border-blue-200">
           <AlertDescription className="text-blue-800">
-            We've updated our legal documents to include new data protection measures and GDPR compliance updates.
+            We&quot;ve updated our legal documents to include new data protection measures and GDPR compliance updates.
           </AlertDescription>
         </Alert>
 
