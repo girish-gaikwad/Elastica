@@ -1,0 +1,16 @@
+frontend
+backend
+hosting
+
+
+✔️homepage
+✔️all_products
+⌛help_centre - videos
+✔️  categorys
+✔️  contact-us
+✔️privacy_policy + ✔️terms_conditions
+⌛detailed product page
+
+
+
+⌛ ADMIN page
