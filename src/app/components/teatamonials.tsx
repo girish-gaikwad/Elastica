@@ -66,7 +66,7 @@ const ReviewCard = ({
 export function TestimonialsSection() {
   // const firstRow = reviews;
 
-  const{reviews}:any = useSampleStore();
+  const{reviews} = useSampleStore();
   const secondRow = [...reviews].reverse();
 
   return (

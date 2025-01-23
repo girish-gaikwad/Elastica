@@ -97,7 +97,7 @@ const ResponsiveNavbar = () => {
         );
     };
 
-    const { categoryContent }: any = useSampleStore()
+    const { categoryContent } = useSampleStore()
 
     const CategoryDropdown: React.FC<{ category: string; data: typeof categoryContent[keyof typeof categoryContent] }> = ({ category, data }) => (
         <NavigationMenuItem>
@@ -139,7 +139,7 @@ const ResponsiveNavbar = () => {
                         </div>
                         <div className="col-span-9 p-8">
                             <div className="grid grid-cols-3 gap-12">
-                                {data.categories.map((cat: any, index: number) => (
+                                {data.categories.map((cat , index: number) => (
                                     <motion.div
                                         key={index}
                                         initial={{ opacity: 0, y: 20 }}

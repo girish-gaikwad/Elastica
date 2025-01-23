@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-export const useSampleStore = create((set) => ({
+export const useSampleStore = create(() => ({
   categoryContent: {
     category: {
       description:

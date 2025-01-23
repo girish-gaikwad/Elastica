@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import Image from 'next/image';
 
-const FeaturedProducts = ({products}:any) => {
+const FeaturedProducts = ({products}) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
  

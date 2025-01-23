@@ -59,7 +59,7 @@ const Onedetail = () => {
     }
   };
 
-  const { ProductOfDay }: any = useSampleStore()
+  const { ProductOfDay } = useSampleStore()
 
   return (
     <section className={`py-12 md:py-16 bg-gradient-to-b ${ProductOfDay.styling.bgGradient}`}>
@@ -99,7 +99,7 @@ const Onedetail = () => {
               variants={fadeInUpVariants}
               className="space-y-6"
             >
-              {ProductOfDay.features.map((feature: any, index: number) => (
+              {ProductOfDay.features.map((feature, index: number) => (
                 <ProductFeature
                   key={index}
                   icon={feature.icon}

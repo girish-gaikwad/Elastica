@@ -5,12 +5,6 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from '@/components/ui/input';
 import { Lens } from '@/components/ui/lens';
 import { Separator } from "@/components/ui/separator";
-import {
-    Tooltip,
-    TooltipContent,
-    TooltipProvider,
-    TooltipTrigger,
-} from "@/components/ui/tooltip";
 import { AnimatePresence, motion } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Filter, Heart, MessageCircle, Plus, RefreshCw, Shield, ShoppingCart, Star, ThumbsUp, Truck } from 'lucide-react';
 import Image from "next/image";
@@ -28,7 +22,7 @@ interface Product {
 }
 const ProductDetailsPage = () => {
     const [selectedSize, setSelectedSize] = useState('M');
-    const [selectedColor, setSelectedColor] = useState('Navy');
+    // const [selectedColor, setSelectedColor] = useState('Navy');
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     // const [showFullGallery, setShowFullGallery] = useState(false);
 
