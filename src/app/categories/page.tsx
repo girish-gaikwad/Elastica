@@ -15,7 +15,7 @@ const CategoryPage = () => {
   const { AllProducts } = useSampleStore()
   // Group products by category
   const categories = Object.entries(
-    AllProducts.products.reduce((acc, product) => {
+    AllProducts.products.reduce((acc: Record<string, any>, product) => {
       if (!acc[product.category]) {
         acc[product.category] = {
           id: product.category.replace(/\s+/g, '-').toLowerCase(),
