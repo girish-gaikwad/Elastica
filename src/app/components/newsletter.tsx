@@ -21,20 +21,20 @@ const NewsletterSection = () => {
       <div className="relative overflow-hidden">
         {/* Background Elements */}
         <div className="absolute top-0 left-0 w-full h-full">
-          <div className="absolute top-0 left-0 w-32 h-32 bg-purple-500/10 rounded-full blur-3xl" />
-          <div className="absolute bottom-0 right-0 w-40 h-40 bg-blue-500/10 rounded-full blur-3xl" />
+          <div className="absolute top-0 left-0 w-32 h-32 bg-green-500/10 rounded-full blur-3xl" />
+          <div className="absolute bottom-0 right-0 w-40 h-40 bg-emerald-500/10 rounded-full blur-3xl" />
         </div>
 
         <Card className="relative backdrop-blur-sm bg-white/70 dark:bg-gray-900/70 border-0 shadow-xl">
           <div className="flex flex-col lg:flex-row gap-8 p-4 sm:p-6 md:p-8">
             {/* Left Content */}
             <div className="space-y-4 md:space-y-6 lg:w-1/2">
-              <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-purple-100 dark:bg-purple-900/30">
-                <Sparkles className="h-3 w-3 sm:h-4 sm:w-4 text-purple-500" />
-                <span className="text-xs sm:text-sm text-purple-700 dark:text-purple-300">Stay Ahead of the Curve</span>
+              <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-green-100 dark:bg-green-900/30">
+                <Sparkles className="h-3 w-3 sm:h-4 sm:w-4 text-green-500" />
+                <span className="text-xs sm:text-sm text-green-700 dark:text-green-300">Stay Ahead of the Curve</span>
               </div>
 
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
                 Join the Future of Innovation
               </h2>
 
@@ -56,7 +56,7 @@ const NewsletterSection = () => {
 
             {/* Right Content - Form */}
             <div className="relative lg:w-1/2">
-              <div className="absolute inset-0 bg-gradient-to-r from-purple-100 to-blue-100 dark:from-purple-900/20 dark:to-blue-900/20 rounded-2xl sm:rounded-3xl blur-xl" />
+              <div className="absolute inset-0 bg-gradient-to-r from-green-100 to-emerald-100 dark:from-green-900/20 dark:to-emerald-900/20 rounded-2xl sm:rounded-3xl blur-xl" />
               <div className="relative bg-white dark:bg-gray-800 rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-sm">
                 <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
                   <div className="space-y-1.5 sm:space-y-2">
@@ -78,7 +78,7 @@ const NewsletterSection = () => {
 
                   <Button
                     type="submit"
-                    className="w-full h-10 sm:h-12 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 transition-all duration-300 text-sm sm:text-base"
+                    className="w-full h-10 sm:h-12 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 transition-all duration-300 text-sm sm:text-base"
                     onMouseEnter={() => setIsHovered(true)}
                     onMouseLeave={() => setIsHovered(false)}
                   >

@@ -11,90 +11,15 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { useMediaQuery } from 'react-responsive';
 import Link from 'next/link';
+import { useSampleStore } from '@/store/samplestore';
 
-const products = [
-  {
-    "id": 1,
-    "name": "Medium Pot, Plain",
-    "price": 80,
-    "tag": "Best Seller",
-    "image": "/img1.jpg"
-  },
-  {
-    "id": 2,
-    "name": "Medium Pot, Kolam",
-    "price": 120,
-    "tag": "Best Seller",
-    "image": "/img2.jpg"
-  },
-  {
-    "id": 3,
-    "name": "Medium Pot, Designer",
-    "price": 150,
-    "tag": "Best Seller",
-    "image": "/img3.jpg"
-  },
-  {
-    "id": 4,
-    "name": "Desk Buddy, Plain",
-    "price": 50,
-    "tag": "Popular",
-    "image": "/img4.jpg"
-  },
-  {
-    "id": 5,
-    "name": "Desk Buddy, Designer",
-    "price": 80,
-    "tag": "Popular",
-    "image": "/img5.jpg"
-  },
-  {
-    "id": 6,
-    "name": "Wall Buddy",
-    "price": 100,
-    "tag": "New Arrival",
-    "image": "/img6.jpg"
-  },
-  {
-    "id": 7,
-    "name": "Dumbell, 1.5 kg",
-    "price": 249,
-    "tag": "Best Seller",
-    "image": "/img7.jpg"
-  },
-  {
-    "id": 8,
-    "name": "Squat Wedge",
-    "price": 300,
-    "tag": "Trending",
-    "image": "/img8.jpg"
-  },
-  {
-    "id": 9,
-    "name": "Frisbee, 7\"",
-    "price": 149,
-    "tag": "Trending",
-    "image": "/img9.jpg"
-  },
-  {
-    "id": 10,
-    "name": "Disc Golf, 7\"",
-    "price": 99,
-    "tag": "New Arrival",
-    "image": "/img10.jpg"
-  },
-  {
-    "id": 11,
-    "name": "Mini Disc, 2.5\"",
-    "price": 49,
-    "tag": "Budget Pick",
-    "image": "/img11.jpg"
-  }
-];
+
+
 
 export default function ProductCarousel() {
   const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
-
+  
+  const{FeaturedProducts}=useSampleStore();
   const cardVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
@@ -128,7 +53,7 @@ export default function ProductCarousel() {
   };
 
   return (
-    <section className="py-8 md:py-10 px-4 bg-green-50">
+    <section className="py-8 md:py-10 px-4 bg-CustomColor">
       <div className="w-full md:px-20 mx-auto">
         <motion.h2 
           initial={{ opacity: 0, x: -20 }}
@@ -136,7 +61,7 @@ export default function ProductCarousel() {
           transition={{ duration: 0.5 }}
           className="text-xl md:text-2xl font-semibold tracking-tight mb-8 text-green-800"
         >
-          Featured Products
+          Featured FeaturedProducts
         </motion.h2>
 
         <Carousel className="w-full relative">
@@ -147,7 +72,7 @@ export default function ProductCarousel() {
             </div>
           )}
           <CarouselContent className="-ml-2 md:-ml-4">
-            {products.map((product) => (
+            {FeaturedProducts.map((product) => (
               <CarouselItem key={product.id} className="pl-2 md:pl-4 basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/4">
                 <motion.div 
                   variants={cardVariants}

@@ -3,24 +3,38 @@ import { motion } from 'framer-motion';
 import { ArrowRight, Star, Shield, CarFront, Sparkles } from 'lucide-react';
 import FeaturedProducts from './featured';
 import { Button } from "@/components/ui/button";
+import { useSampleStore } from '@/store/samplestore';
 
-const ProductFeature = ({ icon: Icon, title, description }: { icon: React.ElementType, title: string, description: string }) => (
-  <motion.div
-    initial={{ opacity: 0, y: 20 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true }}
-    transition={{ duration: 0.5 }}
-    className="flex items-start space-x-3"
-  >
-    <div className="mt-1">
-      <Icon size={20} className="text-green-500" />
-    </div>
-    <div>
-      <h4 className="font-medium text-gray-900 mb-1">{title}</h4>
-      <p className="text-sm text-gray-600">{description}</p>
-    </div>
-  </motion.div>
-);
+
+
+// Dynamic icon mapping
+const iconMap = {
+  Star: Star,
+  Shield: Shield,
+  CarFront: CarFront
+};
+
+const ProductFeature = ({ icon: IconName, title, description }: { icon: string, title: string, description: string }) => {
+  const Icon = iconMap[IconName as keyof typeof iconMap];
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5 }}
+      className="flex items-start space-x-3"
+    >
+      <div className="mt-1">
+        <Icon size={20} className="text-green-500" />
+      </div>
+      <div>
+        <h4 className="font-medium text-gray-900 mb-1">{title}</h4>
+        <p className="text-sm text-gray-600">{description}</p>
+      </div>
+    </motion.div>
+  );
+};
 
 const Onedetail = () => {
   const containerVariants = {
@@ -45,8 +59,10 @@ const Onedetail = () => {
     }
   };
 
+  const { ProductOfDay }: any = useSampleStore()
+
   return (
-    <section className="py-12 md:py-16 bg-gradient-to-b from-white to-green-50/30">
+    <section className={`py-12 md:py-16 bg-gradient-to-b ${ProductOfDay.styling.bgGradient}`}>
       <div className="max-w-7xl mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <motion.div
@@ -61,22 +77,21 @@ const Onedetail = () => {
                 variants={fadeInUpVariants}
                 className="inline-block text-green-600 font-medium text-sm px-3 py-1 bg-green-50 rounded-full mb-4"
               >
-                New Formula
+                {ProductOfDay.productTagline}
               </motion.span>
 
               <motion.h2
                 variants={fadeInUpVariants}
-                className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent"
+                className={`text-4xl md:text-5xl font-bold mb-6 ${ProductOfDay.styling.textColor} bg-clip-text text-transparent text-CustomColor-dark`}
               >
-                Intensive Glow C+ Serum
+                {ProductOfDay.productName}
               </motion.h2>
 
               <motion.p
                 variants={fadeInUpVariants}
                 className="text-gray-600 text-lg leading-relaxed mb-8"
               >
-                Our most powerful vitamin C serum yet. Formulated with 20% L-ascorbic acid
-                and ferulic acid for maximum brightening and anti-aging benefits.
+                {ProductOfDay.description}
               </motion.p>
             </div>
 
@@ -84,21 +99,14 @@ const Onedetail = () => {
               variants={fadeInUpVariants}
               className="space-y-6"
             >
-              <ProductFeature
-                icon={Star}
-                title="Clinically Proven"
-                description="Dermatologist tested for all skin types"
-              />
-              <ProductFeature
-                icon={Shield}
-                title="Safe Formula"
-                description="Free from parabens and harmful chemicals"
-              />
-              <ProductFeature
-                icon={CarFront}
-                title="Deep Absorption"
-                description="Enhanced delivery system for better results"
-              />
+              {ProductOfDay.features.map((feature: any, index: number) => (
+                <ProductFeature
+                  key={index}
+                  icon={feature.icon}
+                  title={feature.title}
+                  description={feature.description}
+                />
+              ))}
             </motion.div>
 
             <motion.div
@@ -106,16 +114,16 @@ const Onedetail = () => {
               className="flex items-center space-x-6"
             >
               <Button
-                className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-full"
+                className={`${ProductOfDay.ctas[0].style} px-6 py-2 rounded-full`}
               >
-                Shop Now
+                {ProductOfDay.ctas[0].text}
               </Button>
 
               <motion.button
                 whileHover={{ x: 10 }}
                 className="flex items-center space-x-2 text-green-600 font-medium group"
               >
-                <span>Explore Collection</span>
+                <span>{ProductOfDay.ctas[1].text}</span>
                 <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
               </motion.button>
             </motion.div>
@@ -140,7 +148,7 @@ const Onedetail = () => {
               }}
               className="absolute -top-8 -right-8 w-32 h-32 bg-green-200 rounded-full opacity-20 blur-3xl"
             />
-            <FeaturedProducts />
+            <FeaturedProducts products={ProductOfDay.products} />
 
             {/* Floating elements */}
             <motion.div

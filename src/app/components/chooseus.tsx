@@ -100,7 +100,7 @@ const FeatureCard = ({ icon: Icon, title, description, index, color }: { icon: R
 
 export default function WhyChooseUs() {
     return (
-        <section className=" px-4 relative overflow-hidden">
+        <section className=" px-4 relative overflow-hidden bg-CustomColor">
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -135,7 +135,7 @@ export default function WhyChooseUs() {
                 className="text-center"
             >
                 <Button 
-                    className="bg-primary hover:bg-primary/90 text-white px-8 py-6 rounded-full text-lg"
+                    className="bg-CustomColor-dark mb-10 hover:bg-primary/90 text-white px-8 py-6 rounded-full text-lg"
                     size="lg"
                 >
                     Start Your Journey

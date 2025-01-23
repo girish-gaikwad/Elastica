@@ -6,35 +6,10 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import Image from 'next/image';
 
-const FeaturedProducts = () => {
+const FeaturedProducts = ({products}:any) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const products = [
-    {
-      id: 1,
-      name: "Wireless Headphones",
-      price: 199.99,
-      rating: 4.5,
-      image: "/api/placeholder/300/300",
-      description: "Premium noise-canceling wireless headphones"
-    },
-    {
-      id: 2,
-      name: "Smart Watch",
-      price: 299.99,
-      rating: 4.8,
-      image: "/api/placeholder/300/300",
-      description: "Advanced fitness tracking smartwatch"
-    },
-    {
-      id: 3,
-      name: "Laptop Stand",
-      price: 49.99,
-      rating: 4.3,
-      image: "/api/placeholder/300/300",
-      description: "Ergonomic aluminum laptop stand"
-    }
-  ];
+ 
 
   const nextProduct = () => setCurrentIndex((prev) => (prev + 1) % products.length);
   const prevProduct = () => setCurrentIndex((prev) => (prev - 1 + products.length) % products.length);
@@ -117,7 +92,7 @@ const FeaturedProducts = () => {
         </div>
         
         <div className="flex justify-center mt-4">
-          {products.map((_, index) => (
+          {products.map((_, index: number) => (
             <Button
               key={index}
               variant="ghost"

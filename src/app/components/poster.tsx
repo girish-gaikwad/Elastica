@@ -42,7 +42,7 @@ const PosterSection = () => {
       initial="hidden"
       animate="visible"
       variants={containerVariants}
-      className="w-full py-12 md:py-16 bg-gray-50"
+      className="w-full py-12 md:py-16 bg-CustomColor"
     >
       <div className="w-[90%] mx-auto">
         {/* Section Header */}
@@ -51,12 +51,12 @@ const PosterSection = () => {
           className="text-center mb-12"
         >
           <motion.h1 
-            className="text-4xl md:text-5xl font-bold text-gray-900 mb-4"
+            className="text-4xl md:text-5xl font-bold text-CustomColor-dark mb-4"
           >
             Exclusive Collections
           </motion.h1>
           <motion.p 
-            className="text-gray-600 text-lg max-w-2xl mx-auto"
+            className="text-gray-700 text-lg max-w-2xl mx-auto"
           >
             Discover our curated selection of premium products with exceptional offers and exclusive deals.
           </motion.p>
@@ -188,7 +188,7 @@ const PosterSection = () => {
         >
           <motion.h2 
             variants={itemVariants}
-            className="text-2xl md:text-3xl font-bold text-gray-900 mb-8"
+            className="text-2xl md:text-3xl font-bold text-CustomColor-dark mb-8"
           >
             Popular Categories
           </motion.h2>

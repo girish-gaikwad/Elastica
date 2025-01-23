@@ -1,134 +1,148 @@
 "use client";
 import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
+import { useSampleStore } from '@/store/samplestore';
 import {
   ChevronRight,
   Heart,
   ShoppingBag,
-  Star
+  Star,
+  Sparkles
 } from 'lucide-react';
 import Image from 'next/image';
 
 const CategoryPage = () => {
-  // Sample data - in real app would come from props or API
-  const categories = [
-    {
-      id: 1,
-      name: "Electronics",
-      image: "/api/placeholder/800/400",
-      description: "Latest gadgets and tech",
-      products: [
-        { id: 1, name: "Wireless Earbuds", price: 899, rating: 4.5, reviews: 128, image: "/api/placeholder/400/400" },
-        { id: 2, name: "Smart Watch", price: 2499, rating: 4.2, reviews: 89, image: "/api/placeholder/400/400" },
-      ]
-    },
-    {
-      id: 2,
-      name: "Fashion",
-      image: "/api/placeholder/800/400",
-      description: "Trending styles and accessories",
-      products: [
-        { id: 3, name: "Denim Jacket", price: 1299, rating: 4.7, reviews: 156, image: "/api/placeholder/400/400" },
-        { id: 4, name: "Sneakers", price: 999, rating: 4.4, reviews: 92, image: "/api/placeholder/400/400" },
-      ]
-    }
-  ];
+  const { AllProducts } = useSampleStore()
+  // Group products by category
+  const categories = Object.entries(
+    AllProducts.products.reduce((acc, product) => {
+      if (!acc[product.category]) {
+        acc[product.category] = {
+          id: product.category.replace(/\s+/g, '-').toLowerCase(),
+          name: product.category,
+          description: `Explore our range of high-quality ${product.category.toLowerCase()} products`,
+          image: "/api/placeholder/800/400",
+          products: []
+        };
+      }
+      acc[product.category].products.push({
+        ...product,
+        rating: 4.5, // Default rating since not in original data
+        reviews: Math.floor(Math.random() * 200), // Random review count
+        image: "/api/placeholder/400/400"
+      });
+      return acc;
+    }, {})
+  ).map(([, category]) => category);
 
   return (
-    <div className="min-h-screen mt-10 bg-gray-50 dark:bg-gray-900">
-      {/* Main Content */}
-      <div className="max-w-8xl px-4 mx-auto sm:px-6 lg:px-8 py-8">
-        <div className="space-y-8">
-          {categories.map((category) => (
-            <section key={category.id} className="space-y-8">
-              {/* Category Header - Mobile Optimized */}
-              <div className="relative overflow-hidden rounded-lg md:rounded-none">
-                <div className="flex flex-col md:block">
-                  <div className="relative md:static">
-                    <Image
-                      src={category.image}
-                      alt={category.name}
-                      width={800}
-                      height={400}
-                      className="w-full h-32 md:h-48 object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-black/20 flex items-center md:block">
-                      <div className="px-4 md:px-8 space-y-2">
-                        <h2 className="text-2xl md:text-3xl font-bold text-white">{category.name}</h2>
-                        <p className="text-sm md:text-base text-gray-200">{category.description}</p>
-                        <Button variant="outline" className="text-sm md:text-base bg-white/10 hover:bg-white/20 text-white border-white/20">
-                          View All <ChevronRight className="h-4 w-4 ml-1" />
-                        </Button>
-                      </div>
-                    </div>
+    <div className="min-h-screen mt-16 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-950 py-12">
+      <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
+        {categories.map((category) => (
+          <section key={category.id} className="mb-16">
+            {/* Category Header */}
+            <div className="relative group overflow-hidden rounded-2xl shadow-xl mb-8">
+              <Image
+                // src={category.image}
+                src="/img2.jpg"
+
+                alt={category.name}
+                width={1200}
+                height={400}
+                className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-black/50 backdrop-blur-sm flex items-center">
+                <div className="px-8 space-y-4 text-white">
+                  <div className="flex items-center space-x-4">
+                    <h2 className="text-4xl font-bold tracking-tight">{category.name}</h2>
+                    <Sparkles className="h-8 w-8 text-yellow-300 animate-pulse" />
                   </div>
+                  <p className="text-lg max-w-2xl opacity-80">{category.description}</p>
+                  <Button
+                    variant="outline"
+                    className="bg-white/10 hover:bg-white/20 text-white border-white/30 transition-all"
+                  >
+                    Explore Collection <ChevronRight className="ml-2 h-5 w-5" />
+                  </Button>
                 </div>
               </div>
+            </div>
 
-              {/* Products Grid - Mobile Optimized */}
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4 md:gap-6">
-                {category.products.map((product) => (
-                  <Card key={product.id} className="group rounded-lg md:rounded-none overflow-hidden hover:shadow-lg transition-all duration-300">
-                    <div className="flex flex-row md:flex-col">
-                      <div className="relative w-1/3 md:w-full aspect-square overflow-hidden">
-                        <Image
-                          src={product.image}
-                          alt={product.name}
-                          width={400}
-                          height={400}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                        />
-                        <button className="absolute top-2 right-2 p-1.5 rounded-full bg-white/80 backdrop-blur-sm hover:bg-white">
-                          <Heart className="h-3 w-3 md:h-4 md:w-4 text-gray-600" />
-                        </button>
-                      </div>
-                      
-                      <div className="flex-1 p-3 md:p-4 space-y-1 md:space-y-2">
-                        <h3 className="font-medium text-sm md:text-base text-gray-900 dark:text-white">{product.name}</h3>
-                        
-                        <div className="flex items-center">
+            {/* Products Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {category.products.map((product) => (
+                <Card
+                  key={product.id}
+                  className="group border-2 border-transparent hover:border-primary/20 rounded-xl transition-all duration-300 shadow-lg hover:shadow-2xl"
+                >
+                  <CardContent className="p-0">
+                    <div className="relative">
+                      <Image
+                        // src={product.image}
+                        src="/img1.jpg"
+
+                        alt={product.name}
+                        width={400}
+                        height={400}
+                        className="w-full h-64 object-cover rounded-t-xl transition-transform duration-500 group-hover:scale-105"
+                      />
+                      <button className="absolute top-4 right-4 bg-white/80 p-2 rounded-full shadow-md hover:bg-white transition-all">
+                        <Heart className="h-5 w-5 text-gray-700 hover:text-red-500" />
+                      </button>
+                    </div>
+                    <div className="p-5 space-y-3">
+                      <div className="flex justify-between items-start">
+                        <div>
+                          <h3 className="font-semibold text-lg text-gray-900 dark:text-white">{product.name}</h3>
+                          <p className="text-sm text-gray-500 dark:text-gray-400">{product.subcategory}</p>
+                        </div>
+                        <div className="flex items-center space-x-1">
                           {[...Array(5)].map((_, i) => (
                             <Star
                               key={i}
-                              className={`h-3 w-3 md:h-3.5 md:w-3.5 ${
-                                i < product.rating 
-                                  ? 'text-yellow-400 fill-yellow-400' 
+                              className={`h-4 w-4 ${i < Math.floor(product.rating)
+                                  ? 'text-yellow-400 fill-yellow-400'
                                   : 'text-gray-200'
-                              }`}
+                                }`}
                             />
                           ))}
-                          <span className="ml-1.5 text-xs text-gray-500">
-                            ({product.reviews})
-                          </span>
-                        </div>
-
-                        <div className="flex items-center justify-between pt-1">
-                          <span className="text-base md:text-lg font-bold text-gray-900 dark:text-white">
-                            ₹{product.price}
-                          </span>
-                          <Button size="sm" className="h-7 md:h-8 px-2 md:px-3">
-                            <ShoppingBag className="h-3 w-3 md:h-3.5 md:w-3.5" />
-                          </Button>
+                          <span className="text-xs text-gray-500 ml-2">({product.reviews})</span>
                         </div>
                       </div>
+                      <div className="flex items-center justify-between pt-2">
+                        <span className="text-xl font-bold text-gray-900 dark:text-white">
+                          ₹{product.price.toLocaleString()}
+                        </span>
+                        <Button
+                          size="lg"
+                          className="rounded-full p-2 bg-primary hover:bg-primary/90 transition-colors"
+                        >
+                          <ShoppingBag className="h-5 w-5" />
+                          Add to Cart
+                        </Button>
+                      </div>
                     </div>
-                  </Card>
-                ))}
-
-                {/* View More Card - Mobile Optimized */}
-                <Card className="flex items-center rounded-lg md:rounded-none justify-center bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 hover:shadow-lg transition-all duration-300">
-                  <div className="text-center p-4 md:p-6">
-                    <Button variant="outline" className="rounded-full h-10 w-10 md:h-12 md:w-12 mb-2 md:mb-3">
-                      <ChevronRight className="h-5 w-5 md:h-6 md:w-6" />
-                    </Button>
-                    <p className="font-medium text-sm md:text-base text-gray-600 dark:text-gray-300">View All Products</p>
-                    <p className="text-xs md:text-sm text-gray-500 dark:text-gray-400">in {category.name}</p>
-                  </div>
+                  </CardContent>
                 </Card>
-              </div>
-            </section>
-          ))}
-        </div>
+              ))}
+
+              {/* View More Card */}
+              <Card className="bg-gradient-to-br from-primary/10 to-primary/20 border-dashed border-2 border-primary/30 rounded-xl flex items-center justify-center hover:shadow-xl transition-all">
+                <CardContent className="text-center p-6">
+                  <div className="bg-primary/10 rounded-full p-3 mb-4 mx-auto w-16 h-16 flex items-center justify-center">
+                    <ChevronRight className="h-8 w-8 text-primary" />
+                  </div>
+                  <p className="font-semibold text-lg text-gray-800 dark:text-white mb-2">
+                    View All Products
+                  </p>
+                  <p className="text-sm text-gray-600 dark:text-gray-300">
+                    In {category.name} Collection
+                  </p>
+                </CardContent>
+              </Card>
+            </div>
+          </section>
+        ))}
       </div>
     </div>
   );

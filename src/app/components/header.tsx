@@ -14,11 +14,13 @@ import { cn } from '@/lib/utils';
 
 
 import { Cinzel } from 'next/font/google';
+import { useSampleStore } from '@/store/samplestore';
+import { title } from 'process';
 
 const cinzel = Cinzel({
     subsets: ['latin'], // Specify the subset you need
     weight: ['400', '700', '900'], // Cinzel supports 400, 700, and 900 weights
-  });
+});
 const ResponsiveNavbar = () => {
     const [isSearchOpen, setIsSearchOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
@@ -94,53 +96,8 @@ const ResponsiveNavbar = () => {
             </Sheet>
         );
     };
-   
-    const categoryContent = {
-        category: {
-            categories: [
-                {
-                    title: "Home and Garden",
-                    image: "/img1.jpg",
-                    description: "Start your routine right",
-                    subcategories: ["Pots", "Desk", "Plates"]
-                },
-                {
-                    title: "Sports and Fitness",
-                    image: "/img2.jpg",
-                    description: "Lock in hydration",
-                    subcategories: ["frisbee", "wedge", "Dumbell"]
-                },
-                {
-                    title: "Toys",
-                    image: "/img3.jpg",
-                    description: "Target specific concerns",
-                    subcategories: ["car", "comming soon", "comming soon"]
-                }
-            ],
-        },
-        new_arrivals: {
-            categories: [
-                {
-                    title: "Face",
-                    image: "/api/placeholder/400/300",
-                    description: "Create your perfect base",
-                    subcategories: ["Foundation", "Concealer", "Powder"]
-                },
-                {
-                    title: "Eyes",
-                    image: "/api/placeholder/400/300",
-                    description: "Make your eyes pop",
-                    subcategories: ["Eyeshadow", "Mascara", "Eyeliner"]
-                },
-                {
-                    title: "Lips",
-                    image: "/api/placeholder/400/300",
-                    description: "Complete your look",
-                    subcategories: ["Lipstick", "Lip Gloss", "Lip Liner"]
-                }
-            ]
-        }
-    };
+
+    const { categoryContent }: any = useSampleStore()
 
     const CategoryDropdown: React.FC<{ category: string; data: typeof categoryContent[keyof typeof categoryContent] }> = ({ category, data }) => (
         <NavigationMenuItem>
@@ -167,22 +124,22 @@ const ResponsiveNavbar = () => {
                             >
                                 <div className="space-y-6">
                                     <h2 className="text-2xl font-light tracking-tight">{category}</h2>
-                                    <p className="text-gray-600 text-sm leading-relaxed">
-                                        Explore our curated collection of premium {category.toLowerCase()} products designed for your unique needs.
+                                    <p className="text-gray-600 text-sm  leading-relaxed">
+                                        {data.description}
                                     </p>
                                     {/* <Link href={`/categories/${category}`}> */}
                                     <Link href={`/categories`}>
-                                    <Button variant="outline" className="w-full justify-between group hover:bg-green-800 hover:text-white transition-colors">
-                                        View All {category}
-                                        <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                                    </Button>
+                                        <Button variant="outline" className="w-full mt-5 justify-between group hover:bg-green-800 hover:text-white transition-colors">
+                                            View All {category}
+                                            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                                        </Button>
                                     </Link>
                                 </div>
                             </motion.div>
                         </div>
                         <div className="col-span-9 p-8">
                             <div className="grid grid-cols-3 gap-12">
-                                {data.categories.map((cat, index) => (
+                                {data.categories.map((cat: any, index: number) => (
                                     <motion.div
                                         key={index}
                                         initial={{ opacity: 0, y: 20 }}
@@ -190,32 +147,33 @@ const ResponsiveNavbar = () => {
                                         transition={{ delay: index * 0.1 }}
                                         className="group space-y-6"
                                     >
-                                        <div className="relative aspect-[4/3] overflow-hidden rounded-lg group">
-                                            <Image
-                                                src={cat.image}
-                                                alt={cat.title}
-                                                width={400}
-                                                height={300}
-                                                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                                            />
-                                            <motion.div
-                                                initial={{ opacity: 0 }}
-                                                whileHover={{ opacity: 1 }}
-                                                transition={{ duration: 0.3 }}
-                                                className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent group-hover:opacity-100"
-                                            >
+                                        <Link href={`/categories/${cat.title.toLowerCase().replace(/\s+/g, '_')}`}>
+                                            <div className="relative aspect-[4/3] overflow-hidden rounded-lg group">
+                                                <Image
+                                                    src={cat.image}
+                                                    alt={cat.title}
+                                                    width={400}
+                                                    height={300}
+                                                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                                                />
                                                 <motion.div
-                                                    initial={{ y: 20, opacity: 0 }}
-                                                    whileHover={{ y: 0, opacity: 1 }}
+                                                    initial={{ opacity: 0 }}
+                                                    whileHover={{ opacity: 1 }}
                                                     transition={{ duration: 0.3 }}
-                                                    className="absolute bottom-0 left-0 right-0 p-6"
+                                                    className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent group-hover:opacity-100"
                                                 >
-                                                    <h3 className="text-white text-xl font-medium mb-2">{cat.title}</h3>
-                                                    <p className="text-white/90 text-sm">{cat.description}</p>
+                                                    <motion.div
+                                                        initial={{ y: 20, opacity: 0 }}
+                                                        whileHover={{ y: 0, opacity: 1 }}
+                                                        transition={{ duration: 0.3 }}
+                                                        className="absolute bottom-0 left-0 right-0 p-6"
+                                                    >
+                                                        <h3 className="text-white text-xl font-medium mb-2">{cat.title}</h3>
+                                                        <p className="text-white/90 text-sm">{cat.description}</p>
+                                                    </motion.div>
                                                 </motion.div>
-                                            </motion.div>
-                                        </div>
-
+                                            </div>
+                                        </Link>
                                         <div className="space-y-4">
                                             <motion.div
                                                 className="flex items-center justify-between group/title"
@@ -225,14 +183,17 @@ const ResponsiveNavbar = () => {
                                                 <ChevronRight className="w-4 h-4 text-gray-400 group-hover/title:text-gray-900 transition-colors" />
                                             </motion.div>
                                             <ul className="space-y-3 pl-4 border-l border-gray-100">
-                                                {cat.subcategories.map((sub, idx) => (
+                                                {cat.subcategories.map((sub: string, idx: number) => (
+
                                                     <motion.li
                                                         key={idx}
                                                         whileHover={{ x: 5 }}
                                                         className="group/item relative flex items-center text-sm text-gray-500 hover:text-gray-900 transition-colors cursor-pointer"
                                                     >
-                                                        <span className="absolute -left-4 w-1 h-4 bg-green-800 scale-y-0 group-hover/item:scale-y-100 transition-transform origin-top" />
-                                                        {sub}
+                                                        <Link href={`/categories/${cat.title.toLowerCase().replace(/\s+/g, '_')}/${sub.toLowerCase().replace(/\s+/g, '_')}`}>
+                                                            <span className="absolute -left-4 w-1 h-4 bg-green-800 scale-y-0 group-hover/item:scale-y-100 transition-transform origin-top" />
+                                                            {sub}
+                                                        </Link>
                                                     </motion.li>
                                                 ))}
                                             </ul>
@@ -293,16 +254,24 @@ const ResponsiveNavbar = () => {
 
                         <div className="hidden lg:block">
                             <NavigationMenu>
-                                <NavigationMenuList className="gap-3">
-                                <NavigationMenuItem>
+                                <NavigationMenuList className="gap-2">
+                                    <NavigationMenuItem>
                                         <Link href="/" legacyBehavior passHref>
                                             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                                                 Home
                                             </NavigationMenuLink>
                                         </Link>
                                     </NavigationMenuItem>
-                                    <CategoryDropdown category="category" data={categoryContent.category} />
-                                    <CategoryDropdown category="new arrivals" data={categoryContent.new_arrivals} />
+
+                                    {Object.keys(categoryContent).map((key, index) => (
+                                        <CategoryDropdown
+                                            key={index}
+                                            category={key}
+                                            data={categoryContent[key]}
+                                        />
+                                    ))}
+
+
                                     <NavigationMenuItem>
                                         <Link href="/contact-us" legacyBehavior passHref>
                                             <NavigationMenuLink className={navigationMenuTriggerStyle()}>

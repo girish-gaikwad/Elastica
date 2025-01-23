@@ -215,144 +215,87 @@ const ProductDetailsPage = () => {
                 </motion.div>
 
                 {/* Product Details Section */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="space-y-8"
-                >
-                    <div className="space-y-4">
-                        <div>
-                            <h1 className="text-4xl font-bold tracking-tight">{product.name}</h1>
-                            <div className="flex items-center gap-4 mt-3">
-                                <div className="flex items-center">
-                                    {[...Array(5)].map((_, i) => (
-                                        <Star
-                                            key={i}
-                                            className={`w-5 h-5 ${i < Math.floor(product.rating)
-                                                ? 'text-yellow-400 fill-current'
-                                                : 'text-gray-300'
-                                                }`}
-                                        />
-                                    ))}
-                                </div>
-                                <Badge variant="secondary">
-                                    {product.reviews} reviews
-                                </Badge>
+                <div className="space-y-6">
+                    <div>
+                        <h1 className="text-3xl font-bold text-green-900">{product.name}</h1>
+                        <div className="flex items-center gap-4 mt-2">
+                            <div className="flex">
+                                {[...Array(5)].map((_, i) => (
+                                    <Star
+                                        key={i}
+                                        className={`h-5 w-5 ${
+                                            i < Math.floor(product.rating)
+                                                ? 'text-green-500 fill-green-500'
+                                                : 'text-green-200'
+                                        }`}
+                                    />
+                                ))}
                             </div>
+                            <Badge variant="secondary" className="bg-green-100 text-green-800">
+                                {product.reviews} Reviews
+                            </Badge>
                         </div>
-
-                        <div className="space-y-2">
-                            <p className="text-3xl font-bold">${product.price}</p>
-                            <p className="text-gray-600 leading-relaxed">{product.description}</p>
-                        </div>
-
-                        <Separator />
-
-                        {/* Size Selector */}
-                        <div className="space-y-4">
-                            <div>
-                                <h3 className="text-sm font-medium mb-3">Size</h3>
-                                <div className="flex gap-3">
-                                    {product.sizes.map(size => (
-                                        <TooltipProvider key={size}>
-                                            <Tooltip>
-                                                <TooltipTrigger asChild>
-                                                    <motion.button
-                                                        whileHover={{ scale: 1.05 }}
-                                                        whileTap={{ scale: 0.95 }}
-                                                        onClick={() => setSelectedSize(size)}
-                                                        className={`w-12 h-12 rounded-md flex items-center justify-center ${selectedSize === size
-                                                            ? 'bg-blue-600 text-white'
-                                                            : 'bg-gray-100 text-gray-800 hover:bg-gray-200'
-                                                            }`}
-                                                    >
-                                                        {size}
-                                                    </motion.button>
-                                                </TooltipTrigger>
-                                                <TooltipContent>
-                                                    <p>Select size {size}</p>
-                                                </TooltipContent>
-                                            </Tooltip>
-                                        </TooltipProvider>
-                                    ))}
-                                </div>
-                            </div>
-
-                            {/* Color Selector */}
-                            <div>
-                                <h3 className="text-sm font-medium mb-3">Color</h3>
-                                <div className="flex gap-3">
-                                    {product.colors.map(color => (
-                                        <TooltipProvider key={color}>
-                                            <Tooltip>
-                                                <TooltipTrigger asChild>
-                                                    <motion.button
-                                                        whileHover={{ scale: 1.05 }}
-                                                        whileTap={{ scale: 0.95 }}
-                                                        onClick={() => setSelectedColor(color)}
-                                                        className={`px-4 py-2 rounded-md ${selectedColor === color
-                                                            ? 'bg-blue-600 text-white'
-                                                            : 'bg-gray-100 text-gray-800 hover:bg-gray-200'
-                                                            }`}
-                                                    >
-                                                        {color}
-                                                    </motion.button>
-                                                </TooltipTrigger>
-                                                <TooltipContent>
-                                                    <p>Select {color.toLowerCase()}</p>
-                                                </TooltipContent>
-                                            </Tooltip>
-                                        </TooltipProvider>
-                                    ))}
-                                </div>
-                            </div>
-                        </div>
-
-                        <Separator />
-
-                        {/* Action Buttons */}
-                        <div className="flex gap-4">
-                            <Button
-                                size="lg"
-                                className="flex-1 text-lg"
-                            >
-                                <ShoppingCart className="w-5 h-5 mr-2" />
-                                Add to Cart
-                            </Button>
-                            <TooltipProvider>
-                                <Tooltip>
-                                    <TooltipTrigger asChild>
-                                        <Button
-                                            size="icon"
-                                            variant="outline"
-                                            className="h-12 w-12"
-                                        >
-                                            <Heart className="w-5 h-5" />
-                                        </Button>
-                                    </TooltipTrigger>
-                                    <TooltipContent>
-                                        <p>Add to wishlist</p>
-                                    </TooltipContent>
-                                </Tooltip>
-                            </TooltipProvider>
-                        </div>
-
-                        {/* Features */}
-                        <Card>
-                            <CardContent className="pt-6">
-                                <h3 className="font-semibold mb-4">Key Features</h3>
-                                <ul className="space-y-3">
-                                    {product.features.map((feature, index) => (
-                                        <li key={index} className="flex items-center gap-2 text-gray-600">
-                                            <Plus className="w-4 h-4 text-blue-600" />
-                                            {feature}
-                                        </li>
-                                    ))}
-                                </ul>
-                            </CardContent>
-                        </Card>
                     </div>
-                </motion.div>
+
+                    <div className="space-y-4">
+                        <p className="text-2xl font-bold text-green-800">₹{product.price}</p>
+                        <p className="text-green-700 leading-relaxed">{product.description}</p>
+                    </div>
+
+                    <div>
+                        <h3 className="text-lg font-semibold text-green-900 mb-3">Size</h3>
+                        <div className="flex gap-3">
+                            {product.sizes.map(size => (
+                                <Button
+                                    key={size}
+                                    variant={selectedSize === size ? 'default' : 'outline'}
+                                    className={`${
+                                        selectedSize === size
+                                            ? 'bg-green-600 text-white'
+                                            : 'bg-green-50 text-green-800 hover:bg-green-100'
+                                    }`}
+                                    onClick={() => setSelectedSize(size)}
+                                >
+                                    {size}
+                                </Button>
+                            ))}
+                        </div>
+                    </div>
+
+                    <Card className="bg-green-50 border-green-200">
+                        <CardContent className="p-6">
+                            <h3 className="font-semibold mb-4 text-green-900">Key Features</h3>
+                            <ul className="space-y-3">
+                                {product.features.map((feature, index) => (
+                                    <li 
+                                        key={index} 
+                                        className="flex items-center gap-2 text-green-800"
+                                    >
+                                        <Plus className="w-4 h-4 text-green-600" />
+                                        {feature}
+                                    </li>
+                                ))}
+                            </ul>
+                        </CardContent>
+                    </Card>
+
+                    <div className="flex gap-4">
+                        <Button 
+                            size="lg" 
+                            className="flex-1 bg-green-600 hover:bg-green-700"
+                        >
+                            <ShoppingCart className="w-5 h-5 mr-2" />
+                            Add to Cart
+                        </Button>
+                        <Button 
+                            size="icon" 
+                            variant="outline" 
+                            className="border-green-300 hover:bg-green-100"
+                        >
+                            <Heart className="w-5 h-5 text-green-600" />
+                        </Button>
+                    </div>
+                </div>
             </div>
 
             {/* Recommended Products Section */}

@@ -6,6 +6,7 @@ import Footer from "./components/footer";
 import NewsletterSection from "./components/newsletter";
 import { Merriweather } from 'next/font/google';
 
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],

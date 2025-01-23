@@ -2,33 +2,9 @@ import { cn } from "@/lib/utils";
 import Marquee from "@/components/ui/marquee";
 import { Star } from "lucide-react";
 import Image from "next/image";
+import { useSampleStore } from "@/store/samplestore";
 
-const reviews = [
-  {
-    name: "Jack Morrison",
-    role: "Marketing Director",
-    username: "@jack",
-    rating: 5,
-    body: "The attention to detail and customer service is exceptional. Truly a game-changing product.",
-    img: "/api/placeholder/32/32"
-  },
-  {
-    name: "Sarah Chen",
-    role: "Product Manager",
-    username: "@sarah",
-    rating: 4,
-    body: "Streamlined our workflow significantly. The ROI has been incredible.",
-    img: "/api/placeholder/32/32"
-  },
-  {
-    name: "David Kumar",
-    role: "Tech Lead",
-    username: "@david",
-    rating: 5,
-    body: "Integration was seamless. The support team went above and beyond.",
-    img: "/api/placeholder/32/32"
-  }
-];
+
 
 const ReviewCard = ({
   img,
@@ -89,10 +65,12 @@ const ReviewCard = ({
 
 export function TestimonialsSection() {
   // const firstRow = reviews;
+
+  const{reviews}:any = useSampleStore();
   const secondRow = [...reviews].reverse();
 
   return (
-    <section className="py-16 px-4">
+    <section className="py-16 px-4 bg-CustomColor">
       <div className="text-center mb-12">
         <h2 className="text-3xl font-bold mb-3">What Our Clients Say</h2>
         <p className="text-muted-foreground max-w-2xl mx-auto">
