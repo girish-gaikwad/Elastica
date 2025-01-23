@@ -1,21 +1,20 @@
 "use client"
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Search, X, Menu, ShoppingBag, User, ArrowRight, ChevronRight } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger, navigationMenuTriggerStyle } from '@/components/ui/navigation-menu';
-import Link from 'next/link';
-import Image from 'next/image';
-import AnnouncementBanner from './announcementBanner';
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { cn } from '@/lib/utils';
+import { AnimatePresence, motion } from 'framer-motion';
+import { ArrowRight, ChevronRight, Menu, Search, ShoppingBag, User, X } from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
+import React, { useEffect, useState } from 'react';
+import AnnouncementBanner from './announcementBanner';
 
 
 
-import { Cinzel } from 'next/font/google';
 import { useSampleStore } from '@/store/samplestore';
-import { title } from 'process';
+import { Cinzel } from 'next/font/google';
 
 const cinzel = Cinzel({
     subsets: ['latin'], // Specify the subset you need
